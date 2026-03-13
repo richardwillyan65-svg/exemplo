@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Base user profile for customers and sellers.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["customer", "seller", "admin"] },
+        "documentId": { "type": "string", "description": "CPF or CNPJ" },
+        "phoneNumber": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role", "documentId"]
+    },
+    "Sale": {
+      "title": "Sale",
+      "description": "Record of a sale made by a seller.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "customerId": { "type": "string" },
+        "amount": { "type": "number" },
+        "cost": { "type": "number", "description": "Cost of the item for profit calculation" },
+        "status": { "type": "string", "enum": ["pending", "completed", "cancelled"] },
+        "productName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["sellerId", "amount", "cost", "status", "productName"]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": "User",
+      "description": "Collection of all users."
+    },
+    "sales": {
+      "schema": "Sale",
+      "description": "Collection of all sales transactions."
+    }
+  }
+}
